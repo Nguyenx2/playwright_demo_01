@@ -17,10 +17,15 @@ test.fixme("Password field click and blur", async ({ page }) => {
 });
 
 test("Account already exists", async ({ page }) => {
-  await page.locator("#Email").fill("dzung@gmail.com");
+  const email = "dzung@gmail.com";
+  await page.locator("#FullName").fill("Dzung Nguyen");
+  await page.locator("#Email").fill(email);
+  await page.locator("#PhoneNumber").fill("0909123456");
   await page.getByLabel("Password rules").fill("dungvn@1");
   await page.locator("#ConfirmPassword").fill("dungvn@1");
   await page.locator("#terms").check();
   await page.locator("button[type=submit]").click();
-  await expect(page.getByText("Error Username 'dzung@gmail.")).toBeVisible();
+  await expect(
+    page.getByText(`Email '${email}' is already taken.`)
+  ).toBeVisible();
 });
