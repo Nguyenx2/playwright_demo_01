@@ -18,7 +18,7 @@ test.fixme("Password field click and blur", async ({ page }) => {
 
 test("Account already exists", async ({ page }) => {
   await page.locator("#Email").fill("dzung@gmail.com");
-  await page.getByLabel("Password rules").fill("dungvn@1");
+  await page.getByLabel("Password rules").fill("dungvn@2");
   await page.locator("#ConfirmPassword").fill("dungvn@1");
   await page.locator("#terms").check();
   await page.locator("button[type=submit]").click();
