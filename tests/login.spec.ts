@@ -5,8 +5,8 @@ test.beforeEach("Open page", async ({ page }) => {
 });
 
 test("Login with valid credentials", async ({ page }) => {
-  const email = process.env.EZARES_ACCOUNT_USR || "admin";
-  const password = process.env.EZARES_ACCOUNT_PWD || "ezcloud@123";
+  const email = process.env.LOGIN_INFO_USR || "admin";
+  const password = process.env.LOGIN_INFO_PWD || "ezcloud@123";
   await page.getByRole("textbox", { name: "Username" }).fill(email);
   await page.getByRole("textbox", { name: "Password" }).fill(password);
   await page.getByRole("button", { name: "Login", exact: true }).click();
