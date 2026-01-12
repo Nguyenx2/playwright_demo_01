@@ -6,21 +6,24 @@ test.beforeEach("Open page", async ({ page }) => {
 
 test.fixme("Password field click and blur", async ({ page }) => {
   await page.locator("#password").click();
-
   await expect(page.locator(".popover-header")).toHaveText("Password rules");
-
   await page.getByLabel("Password rules").evaluate((el) => el.blur());
-
   await expect(page.locator(".popover-header")).toBeVisible();
   await page.locator("#password").evaluate((el) => el.blur());
   await expect(page.locator(".popover-header")).not.toBeVisible();
 });
 
 test("Account already exists", async ({ page }) => {
-  await page.locator("#Email").fill("dzung@gmail.com");
-  await page.getByLabel("Password rules").fill("dungvn@2");
+  const email = "dzung@gmail.com";
+  await page.locator("#FullName").fill("Dzung Nguyen");
+  await page.locator("#Email").fill(email);
+  await page.locator("#PhoneNumber").fill("0909123456");
+  await page.getByLabel("Password rules").fill("dungvn@1");
   await page.locator("#ConfirmPassword").fill("dungvn@1");
   await page.locator("#terms").check();
   await page.locator("button[type=submit]").click();
-  await expect(page.getByText("Error Username 'dzung@gmail.")).toBeVisible();
+
+  await expect(
+    page.getByText(`Email '${email}' is already taken.`)
+  ).toBeVisible();
 });
